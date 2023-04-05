@@ -19,6 +19,21 @@ DATA = {
     # можете добавить свои рецепты ;)
 }
 
+def calculation(dish,serv):
+    data = {i: round(a * int(serv), 2) for i, a in DATA[dish].items()}
+    context = {
+        'recipe': data,
+    }
+    return context
+
+def omlet(request):
+    servings = request.GET.get('servings', 1)
+    return render(request, 'calculator/index.html', calculation('omlet', servings))
+
+
+def pasta(request):
+    servings = request.GET.get('servings', 1)
+    return render(request, 'calculator/index.html', calculation('pasta', servings))
 # Напишите ваш обработчик. Используйте DATA как источник данных
 # Результат - render(request, 'calculator/index.html', context)
 # В качестве контекста должен быть передан словарь с рецептом:
